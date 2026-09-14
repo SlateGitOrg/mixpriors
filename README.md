@@ -2,6 +2,22 @@
 
 > A Bayesian media mix model whose budget optimiser maximises expected return under the posterior, not under a point estimate.
 
+## Live deployment
+
+[![CI and deployment](https://github.com/SlateGitOrg/mixpriors/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/SlateGitOrg/mixpriors/actions/workflows/ci.yml)
+
+[Open the interactive MixPriors demo](https://slategitorg.github.io/mixpriors/)
+
+The deployed interface uses a deterministic offline scenario to make the repository's tested decision rule visible without external services or private data.
+
+### Desktop
+
+![MixPriors desktop deployment](docs/assets/deployed-desktop.png)
+
+### Mobile
+
+<img src="docs/assets/deployed-mobile.png" alt="MixPriors mobile deployment" width="390">
+
 `FLAGSHIP` · **Marketing Analyst** · Expert · ~6 weeks · Insurance - direct-to-consumer acquisition
 
 **Primary language:** Python
