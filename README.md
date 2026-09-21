@@ -6,9 +6,9 @@
 
 [![CI and deployment](https://github.com/SlateGitOrg/mixpriors/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/SlateGitOrg/mixpriors/actions/workflows/ci.yml)
 
-[Open the interactive MixPriors demo](https://slategitorg.github.io/mixpriors/)
+[Open the working MixPriors application](https://slategitorg.github.io/mixpriors/)
 
-The deployed interface uses a deterministic offline scenario to make the repository's tested decision rule visible without external services or private data.
+This deployed application runs the project's decision workflow in the browser. Change the inputs, run the analysis, and inspect the computed metrics and decision trace.
 
 ### Desktop
 
