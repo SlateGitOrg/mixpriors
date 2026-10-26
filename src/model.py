@@ -3,7 +3,7 @@
 The usual MMM produces a point estimate of return per channel and hands the
 optimiser that single number. The optimiser then allocates as if it were true,
 and the recommendation is confidently wrong wherever the model is uncertain -
-which, on 150 observations, is nearly everywhere.
+which, on 156 weekly observations, is nearly everywhere.
 
 Here the optimiser maximises EXPECTED response under the posterior. Two
 consequences fall out that a point estimate cannot express:
@@ -12,9 +12,11 @@ consequences fall out that a point estimate cannot express:
     because the expectation over the posterior is dominated by the draws where
     it does little;
   - the recommendation comes with a credible interval, so "reallocate GBP 7M"
-    becomes "reallocate GBP 7M for +6% to +15%".
+    becomes, for example, "reallocate GBP 7M for a credible +6% to +15%"
+    (illustrative figures, not output of this code).
 
-Sampling is Metropolis-Hastings, written out rather than delegated. A production fit would use NumPyro or Stan with NUTS; writing the sampler out
+Sampling is Metropolis-Hastings, written out rather than delegated. A
+production fit would use NumPyro or Stan with NUTS; writing the sampler out
 here keeps the prior and likelihood visible and the accept/reject step easy to
 follow.
 """
@@ -385,11 +387,11 @@ def optimise_at_posterior_mean(
 ) -> Allocation:
     """The common shortcut: collapse the posterior to its mean, then optimise.
 
-    Included so the benefit of using the full posterior can be measured rather than assumed. This
-    is what most MMM pipelines do - take the fitted point estimate, hand it to
-    an optimiser, and present the result. It throws away everything the model
-    knows about what it does not know, and it loads up on channels whose high
-    mean is carried by a handful of extreme draws.
+    Included so the benefit of using the full posterior can be measured rather
+    than assumed. This is what most MMM pipelines do: take the fitted point
+    estimate, hand it to an optimiser, and use the result. It discards the
+    posterior uncertainty, and it loads up on channels whose high mean is
+    carried by a handful of extreme draws.
     """
     collapsed = posterior.draws[0].copy()
     collapsed.baseline = posterior.mean(lambda d: d.baseline)

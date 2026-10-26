@@ -48,10 +48,9 @@ def main() -> None:
 
     fitted_baseline = posterior.mean(lambda d: d.baseline)
     print(f"    baseline: {fitted_baseline:,.0f} (true {TRUE_BASELINE:,.0f})")
-    print("    The baseline matters more than it looks. Give it a diffuse")
-    print("    prior and it absorbs the media contribution: every coefficient")
-    print("    collapses toward zero, the model reports that media does almost")
-    print("    nothing, and it fits the data beautifully the whole time.\n")
+    print("    Note: a diffuse baseline prior lets the baseline absorb media")
+    print("    contribution, pushing coefficients toward zero while the fit")
+    print("    still looks good, so the baseline prior is kept tight.\n")
 
     full = optimise(posterior, budget, steps=120)
     collapsed = optimise_at_posterior_mean(posterior, budget, steps=120)
@@ -98,8 +97,7 @@ def main() -> None:
     print("  " + "-" * 76)
     for p in PRIORS[:4]:
         print(f"    {p.name:<14}{p.justification}")
-    print("    'We used priors' is not an argument. Each of these is a claim")
-    print("    a marketer can disagree with, which is what makes it one.\n")
+    print("    Each prior is an explicit assumption that can be reviewed and changed.\n")
 
 
 if __name__ == "__main__":

@@ -1,18 +1,17 @@
 """Adstock and saturation, with priors that carry the load.
 
-A CMO splits GBP 40M across nine channels. Weekly aggregate data gives roughly
-150 observations to estimate nine channel effects plus seasonality and price.
-An unconstrained fit will happily report that radio has a negative effect and
-out-of-home returns 14x - both noise - and the budget moves accordingly.
+The demo splits a GBP 45M annual budget across nine channels. Weekly aggregate
+data gives 156 observations to estimate nine channel effects plus a baseline and
+seasonality, 29 parameters in all. An unconstrained fit can report that a
+channel has a negative effect, or an implausibly large one, from noise alone,
+and the budget then moves accordingly.
 
-Priors are what stop that. They are not a statistical nicety: with 150 rows and
-20 parameters, the data alone does not identify the answer, so SOMETHING has to
-supply the missing information. The choice is between priors you wrote down and
-defended, and whatever the optimiser happens to land on.
+With 156 rows and 29 parameters the data alone does not identify the answer, so
+something has to supply the missing information: either priors that are written
+down and justified, or whatever the optimiser happens to land on.
 
-Every prior below is stated with its justification, because "we used priors" is
-not an argument and "we used a Beta(3,3) on adstock because carryover beyond
-six weeks is not physically plausible for digital display" is.
+Every prior below is stated with its justification, for example a Beta prior on
+adstock decay that puts little mass on carryover beyond a few weeks.
 """
 
 from __future__ import annotations
