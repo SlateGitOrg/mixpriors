@@ -153,7 +153,7 @@ class TestOptimiser(Base):
             f"incumbent's {incumbent:,.0f} on the TRUE curves",
         )
 
-    def test_THE_DIFFERENTIATOR_posterior_aware_beats_the_point_estimate(self):
+    def test_posterior_aware_beats_the_point_estimate(self):
         """The claim of this project, measured rather than asserted.
 
         Both allocations come from the same posterior. One uses all of it; the

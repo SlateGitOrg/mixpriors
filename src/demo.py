@@ -1,4 +1,4 @@
-"""The 60-second artefact: an allocation with a credible interval, and a list
+"""Demo: an allocation with a credible interval, and a list
 of what the model cannot tell apart.
 
 Run: python -m src.demo
@@ -23,14 +23,14 @@ def main() -> None:
     budget = sum(INCUMBENT_WEEKLY.values())
     annual = budget * 52
 
-    print("\n  MIXPRIORS - 150 observations, 28 parameters, GBP 40M to split")
+    print("\n  MIXPRIORS - 156 weekly observations, 29 parameters, GBP 45M to split")
     print("  " + "=" * 76)
     print(f"  {data.weeks} weeks, {len(CHANNELS)} channels, "
           f"GBP {annual:,.0f} annual budget.")
     print(f"  Sampler acceptance {posterior.acceptance_rate:.0%}, "
           f"{len(posterior.draws)} retained draws.\n")
 
-    print("  PARAMETER RECOVERY (the only honest way to evaluate an MMM)")
+    print("  PARAMETER RECOVERY (the check that matters for an MMM)")
     print("  " + "-" * 76)
     print(f"    {'channel':<14}{'true':>7}{'posterior mean':>17}"
           f"{'90% interval':>22}{'covers':>9}")
@@ -92,7 +92,7 @@ def main() -> None:
         print(f"    {a} / {b}")
     print(f"    ({len(pairs)} pairs whose coefficient intervals overlap heavily)")
     print("    Any fitting procedure will hand these some split of the credit.")
-    print("    Presenting that split as a finding is how an MMM loses the room.\n")
+    print("    Presenting that split as a finding overstates what the data supports.\n")
 
     print("  THE PRIORS, AND WHY")
     print("  " + "-" * 76)

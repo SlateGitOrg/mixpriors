@@ -1,7 +1,5 @@
 """Adstock and saturation, with priors that carry the load.
 
-THE DIFFERENTIATOR LIVES HERE (first half).
-
 A CMO splits GBP 40M across nine channels. Weekly aggregate data gives roughly
 150 observations to estimate nine channel effects plus seasonality and price.
 An unconstrained fit will happily report that radio has a negative effect and

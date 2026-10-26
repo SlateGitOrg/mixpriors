@@ -1,7 +1,5 @@
 """Posterior sampling, and a budget optimiser that consumes the posterior.
 
-THE DIFFERENTIATOR LIVES HERE (second half).
-
 The usual MMM produces a point estimate of return per channel and hands the
 optimiser that single number. The optimiser then allocates as if it were true,
 and the recommendation is confidently wrong wherever the model is uncertain -
@@ -16,10 +14,9 @@ consequences fall out that a point estimate cannot express:
   - the recommendation comes with a credible interval, so "reallocate GBP 7M"
     becomes "reallocate GBP 7M for +6% to +15%".
 
-Sampling is Metropolis-Hastings, written out rather than delegated. In
-production this is NumPyro/Stan with NUTS; the point of writing it here is that
-the prior and likelihood are visible, and the acceptance of the proposal is
-something a reviewer can follow.
+Sampling is Metropolis-Hastings, written out rather than delegated. A production fit would use NumPyro or Stan with NUTS; writing the sampler out
+here keeps the prior and likelihood visible and the accept/reject step easy to
+follow.
 """
 
 from __future__ import annotations
@@ -173,7 +170,7 @@ def sample(
 
       STEP ADAPTATION. A hand-tuned step size is tuned for one dataset. During
       burn-in the step is adjusted toward a target acceptance rate, so the
-      sampler is not silently stuck on somebody else's data. Adaptation stops
+      sampler is not silently stuck on another dataset's scale. Adaptation stops
       when burn-in ends, because adapting on the kept draws breaks the
       stationary distribution.
     """
@@ -301,7 +298,7 @@ def build_response_table(
     Built once, so the greedy allocator below is a table lookup rather than a
     full posterior sweep per candidate move. Without this the honest
     evaluation - every draw, every week, flighted - is too slow to run, and
-    slow is how the honest version quietly gets replaced by the shortcut.
+    a slow evaluation tends to get replaced by the shortcut.
     """
     from .generator import flighting_profile
 
@@ -388,7 +385,7 @@ def optimise_at_posterior_mean(
 ) -> Allocation:
     """The common shortcut: collapse the posterior to its mean, then optimise.
 
-    Included so the differentiator can be MEASURED rather than asserted. This
+    Included so the benefit of using the full posterior can be measured rather than assumed. This
     is what most MMM pipelines do - take the fitted point estimate, hand it to
     an optimiser, and present the result. It throws away everything the model
     knows about what it does not know, and it loads up on channels whose high
@@ -416,7 +413,7 @@ def indistinguishable_channels(
 
     Reported rather than split arbitrarily. Two collinear channels will be
     given some division of credit by any fitting procedure, and presenting
-    that division as a finding is how an MMM loses the room.
+    that division as a finding overstates what the data supports.
     """
     out: list[tuple[str, str]] = []
     for i, a in enumerate(CHANNELS):
